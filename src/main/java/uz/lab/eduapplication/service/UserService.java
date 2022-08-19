@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface UserService {
     ApiResponse<UserDTO> createUser(UserDTO user);
     ApiResponse<UserDTO> updateUser(UserDTO user);
-    ApiResponse removeUser(Long userId);
+    ApiResponse removeUser(UUID userId);
     ApiResponse<List<UserDTO>> getUsers();
     ApiResponse solveQuestion(List<AnswerDTO> anwers, UUID questionId);
     ApiResponse addSubject(UUID subjectId);

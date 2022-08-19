@@ -6,11 +6,13 @@ import lombok.NoArgsConstructor;
 import uz.lab.eduapplication.entity.enums.RoleEnum;
 
 import java.util.List;
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-    private Long id;
+    private UUID id;
     private String userName;
     private String password;
     private String fullName;
