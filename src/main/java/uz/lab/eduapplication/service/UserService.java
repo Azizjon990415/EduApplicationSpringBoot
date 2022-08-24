@@ -13,7 +13,7 @@ public interface UserService {
     ApiResponse<UserDTO> updateUser(UserDTO user);
     ApiResponse removeUser(UUID userId);
     ApiResponse<List<UserDTO>> getUsers();
-    ApiResponse solveQuestion(List<AnswerDTO> anwers, UUID questionId);
+    ApiResponse solveQuestion(List<AnswerDTO> anwers, UUID questionId,UUID userProgressId);
     ApiResponse addSubject(UUID subjectId);
     ApiResponse<List<UserProgressDTO>> getStatuses();
     ApiResponse<UserProgressDTO> getStatus(UUID subjectId);
