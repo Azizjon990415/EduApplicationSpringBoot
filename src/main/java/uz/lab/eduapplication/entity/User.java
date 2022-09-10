@@ -5,6 +5,7 @@ import org.hibernate.Hibernate;
 import uz.lab.eduapplication.entity.template.AbsEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +28,7 @@ public class User extends AbsEntity {
     private List<Role> roles;
 
     @OneToMany(mappedBy = "user")
-    private List<UserProgress> userProgresses;
+    private List<UserProgress> userProgresses=new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

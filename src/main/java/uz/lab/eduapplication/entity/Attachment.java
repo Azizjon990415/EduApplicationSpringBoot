@@ -23,4 +23,5 @@ public class Attachment extends AbsEntity {
     private String type;
     @Column
     private Long size;
+
 }

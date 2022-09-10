@@ -31,6 +31,8 @@ public class UserServiceImpl implements UserService {
     UserProgressRepository userProgressRepository;
     @Autowired
     UserAnswerRepository userAnswerRepository;
+    @Autowired
+    SubjectRepository subjectRepository;
 
     @Override
     public ApiResponse<UserDTO> createUser(UserDTO user) {
@@ -67,6 +69,7 @@ public class UserServiceImpl implements UserService {
         List<UserDTO> userDTOS = new ArrayList<>();
         userRepository.findAll().forEach(user -> {
             UserDTO userDTO = new UserDTO();
+            userDTO.setId(user.getId());
             userDTO.setUserName(user.getUserName());
             userDTO.setFullName(user.getFullName());
             userDTO.setRoles(user.getRoles().stream().map(role -> role.getName()).collect(Collectors.toList()));
@@ -109,9 +112,22 @@ public class UserServiceImpl implements UserService {
         return new ApiResponse<>(correct.get(),correct.get()?"User solved correctly":"Incorrect answer",null);
     }
 
+    public User getCurrentUser(){
+        return userRepository.findFirstBy().orElseThrow(() -> new EntityNotFoundException("user table empty"));
+    }
+
     @Override
     public ApiResponse addSubject(UUID subjectId) {
-        return null;
+        Subject subject = subjectRepository.findById(subjectId).orElseThrow(() -> new EntityNotFoundException("Subject not found with id " + subjectId));
+        User currentUser = getCurrentUser();
+        UserProgress userProgress= new UserProgress();
+        userProgress.setUser(currentUser);
+        userProgress.setSubject(subject);
+        userProgress.setTotal(questionRepository.countAllBySubject(subject));
+        userProgress = userProgressRepository.save(userProgress);
+        currentUser.getUserProgresses().add(userProgress);
+        userRepository.save(currentUser);
+        return new ApiResponse(true,"Subject added",null);
     }
 
     @Override

@@ -38,5 +38,7 @@ public abstract class AbsEntity {
     @LastModifiedBy
     @Column(name = "updated_by_id")
     private UUID updatedBy;
+
+
 }
 
